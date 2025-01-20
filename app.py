@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 IMAGE_SIZE = (50, 50)
 # Load the trained model
-model = load_model('static\model\char_recognition_model_v3.h5')
+model = load_model(r'static\model\char_recognition_model_v3.h5')
 
 # Route to the index.html page
 @app.route('/')
@@ -35,14 +35,14 @@ def validate_images():
         image_binary = base64.b64decode(image_data)
 
         image_stream = io.BytesIO(image_binary)
-        image_path = os.path.join('static\images', f'image_{index}.jpg')
+        image_path = os.path.join(r'static\images', f'image_{index}.jpg')
         # Open and convert the image
         img = Image.open(image_stream)
         new_img = Image.new("RGB", img.size, (255, 255, 255))
         new_img.paste(img, mask=img.split()[3])
         new_img.save(image_path, 'JPEG')
 
-    image_directory = 'static\images'
+    image_directory = r'static\images'
     image_files = [f for f in os.listdir(image_directory) if os.path.isfile(os.path.join(image_directory, f))]
     # Load and preprocess the images
     images = []
